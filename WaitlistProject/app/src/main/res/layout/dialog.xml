@@ -12,15 +12,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_member"
-            android:textSize="36sp"
-            android:layout_marginTop="10px"
+            android:textSize="30sp"
+            android:layout_marginTop="18px"
             android:layout_gravity="center"/>
 
             <EditText
                 android:id="@+id/et_guest_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24px"
+                android:layout_marginLeft="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginTop="18px"
                 android:hint="@string/guest_name_hint"
                 android:inputType="textPersonName|textCapWords"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
@@ -29,9 +31,11 @@
                 android:id="@+id/et_guest_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24px"
+                android:layout_marginLeft="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginTop="18px"
                 android:inputType="number"
-                android:hint="age"
+                android:hint="Age"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
 
@@ -43,8 +47,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
-            android:layout_marginRight="20px">
+            android:layout_marginLeft="50px"
+            android:layout_marginRight="50px"
+            android:layout_marginTop="24px">
 
             <Button
                 style="?android:attr/buttonBarButtonStyle"
@@ -80,8 +85,9 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:weightSum="2"
-            android:layout_marginLeft="20px"
-            android:layout_marginRight="20px">
+            android:layout_marginLeft="50px"
+            android:layout_marginRight="50px"
+            android:layout_marginTop="12px">
 
             <RadioButton
                 android:id="@+id/radButton1"
@@ -105,15 +111,17 @@
         </RadioGroup>
 
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20px"
-        android:layout_marginRight="20px">
+        android:layout_marginLeft="200px"
+
+        android:layout_marginTop="28px">
 
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="200px"
+            android:layout_width="300px"
             android:layout_height="match_parent"
             android:text="Cancel" />
 

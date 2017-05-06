@@ -4,6 +4,18 @@
     android:layout_height="56dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
+    <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@color/materialOrange"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="@string/default_party_size"
+        android:layout_marginRight="50px"/>
 
     <TextView
         android:id="@+id/guestAge_text_view"

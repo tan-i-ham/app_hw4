@@ -32,4 +32,9 @@
     <string name="add_member">Add Member</string>
 
 
+    <!--sorting-->
+    <string name="sortByName">Sort By Name</string>
+    <string name="sortByGender">Sort By Gender</string>
+    <string name="sortByID">Sort By ID"</string>
+    <string name="sortByAge">Sort By Age"</string>
 </resources>

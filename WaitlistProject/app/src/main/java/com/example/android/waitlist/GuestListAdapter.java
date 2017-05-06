@@ -49,6 +49,7 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
         // Display the party count
         holder.guestAgeTextView.setText(String.valueOf(guestAge));
         holder.sexTextView.setText(sex);
+        holder.idTextView.setText(String.valueOf(id));
         // COMPLETED (7) Set the tag of the itemview in the holder to the id
         holder.itemView.setTag(id);
     }
@@ -87,12 +88,15 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
 
         TextView sexTextView;
 
+        TextView idTextView;
+
 
         public GuestViewHolder(View itemView) {
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
             guestAgeTextView = (TextView) itemView.findViewById(R.id.guestAge_text_view);
             sexTextView = (TextView) itemView.findViewById(R.id.sex_show);
+            idTextView =(TextView) itemView.findViewById(R.id.idTextView);
         }
 
     }

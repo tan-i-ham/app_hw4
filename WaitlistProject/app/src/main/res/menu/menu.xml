@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/sortByName"
+        android:id="@+id/sortByName"
+        android:orderInCategory="1"
+         />
+
+
+    <item android:title="@string/sortByGender"
+        android:id="@+id/sortByGender"
+        android:orderInCategory="2"/>
+
+    <item android:title="@string/sortByID"
+        android:id="@+id/sortByID"
+        android:orderInCategory="3"/>
+
+    <item android:title="@string/sortByAge"
+        android:id="@+id/sortByAge"
+        android:orderInCategory="4"/>
+</menu>

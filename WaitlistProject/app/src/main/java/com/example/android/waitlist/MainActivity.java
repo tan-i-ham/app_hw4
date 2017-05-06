@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +24,7 @@ import com.example.android.waitlist.data.WaitlistDbHelper;
 public class MainActivity extends AppCompatActivity {
 
     private GuestListAdapter mAdapter;
-    private SQLiteDatabase mDb;
+    public SQLiteDatabase mDb;
 
     private EditText mGuestName;
     private EditText mGuestAge;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDb = dbHelper.getWritableDatabase();
         Cursor cursor = getAllGuests();
+//        Cursor cursor2 = sortByName();
         mAdapter = new GuestListAdapter(this, cursor);
 
 
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.popout_window,null);
+                View mView = getLayoutInflater().inflate(R.layout.dialog,null);
                 mGuestName = (EditText) mView.findViewById(R.id.et_guest_name);
                 mGuestAge = (EditText) mView.findViewById(R.id.et_guest_age);
 
@@ -79,14 +82,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
                 Button dialogCancel = (Button) mView.findViewById(R.id.btnCancel) ;
                 Button dialogOK = (Button) mView.findViewById(R.id.btnOK) ;
 
                 dialogCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        v.cancelDragAndDrop();
                     }
                 });
 
@@ -124,6 +126,34 @@ public class MainActivity extends AppCompatActivity {
         }).attachToRecyclerView(waitlistRecyclerView);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemThatWasClickedId = item.getItemId();
+        if (itemThatWasClickedId == R.id.sortByName) {
+            mAdapter.swapCursor(sortByName());
+            return true;
+        }
+        else if(itemThatWasClickedId == R.id.sortByGender){
+            mAdapter.swapCursor(sortByGender());
+            return true;
+        }
+        else if(itemThatWasClickedId == R.id.sortByID){
+            mAdapter.swapCursor(sortByID());
+            return true;
+        }
+        else{
+            mAdapter.swapCursor(sortByAge());
+            return true;
+        }
     }
 
 
@@ -176,7 +206,53 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 null,
                 null,
-                WaitlistContract.WaitlistEntry.COLUMN_TIMESTAMP
+                null
+        );
+    }
+
+    private Cursor sortByName(){
+         return mDb.query(
+                 WaitlistContract.WaitlistEntry.TABLE_NAME,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 WaitlistContract.WaitlistEntry.COLUMN_GUEST_NAME
+         );
+    }
+
+    private Cursor sortByGender(){
+        return mDb.query(
+                WaitlistContract.WaitlistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                WaitlistContract.WaitlistEntry.COLUMN_GUEST_SEX
+        );
+    }
+    private Cursor sortByID(){
+        return mDb.query(
+                WaitlistContract.WaitlistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                WaitlistContract.WaitlistEntry._ID
+        );
+    }
+    private Cursor sortByAge(){
+        return mDb.query(
+                WaitlistContract.WaitlistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                WaitlistContract.WaitlistEntry.COLUMN_GUEST_AGE
         );
     }
 
@@ -194,5 +270,7 @@ public class MainActivity extends AppCompatActivity {
         return mDb.delete(WaitlistContract.WaitlistEntry.TABLE_NAME,
                 WaitlistContract.WaitlistEntry._ID + "=" + id, null) > 0;
     }
+
+
 
 }
