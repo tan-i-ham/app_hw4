@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
         <TextView
             android:id="@+id/pop_titile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_member"
             android:textSize="30sp"
-            android:layout_marginTop="18px"
+            android:layout_marginTop="50px"
             android:layout_gravity="center"/>
 
             <EditText
@@ -60,7 +58,7 @@
                 android:background="@color/colorPrimary"
                 android:text="@string/male"
                 android:layout_weight="1"
-                android:onClick="onPrioritySelected"/>
+                />
 
 
 
@@ -73,7 +71,7 @@
                 android:background="@color/materialRed"
                 android:text="@string/female"
                 android:layout_weight="1"
-                android:onClick="onPrioritySelected"/>
+               />
 
 
         </LinearLayout>
@@ -116,7 +114,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="200px"
-
+        android:layout_marginBottom="50px"
         android:layout_marginTop="28px">
 
         <Button
@@ -129,7 +127,6 @@
             android:id="@+id/btnOK"
             android:layout_width="200px"
             android:layout_height="match_parent"
-            android:onClick="addToWaitlist"
             android:text="OK" />
 
     </LinearLayout>

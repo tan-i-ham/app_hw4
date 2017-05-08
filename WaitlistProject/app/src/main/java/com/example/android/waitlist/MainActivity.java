@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,11 +21,13 @@ import android.widget.RadioGroup;
 import com.example.android.waitlist.data.WaitlistContract;
 import com.example.android.waitlist.data.WaitlistDbHelper;
 
+import static com.example.android.waitlist.R.layout.dialog;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private GuestListAdapter mAdapter;
-    public SQLiteDatabase mDb;
+    private SQLiteDatabase mDb;
 
     private EditText mGuestName;
     private EditText mGuestAge;
@@ -51,54 +54,60 @@ public class MainActivity extends AppCompatActivity {
 //        Cursor cursor2 = sortByName();
         mAdapter = new GuestListAdapter(this, cursor);
 
+        FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab);
 
+//        fabButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+//                View mView = getLayoutInflater().inflate(dialog,null);
+//                mGuestName = (EditText) mView.findViewById(R.id.et_guest_name);
+//                mGuestAge = (EditText) mView.findViewById(R.id.et_guest_age);
+//
+//                mRG = (RadioGroup) mView.findViewById(R.id.radGroup);
+//                mRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                        switch (mRG.getCheckedRadioButtonId()) {
+//                            case R.id.radButton1:
+//                                mPriority = 1;
+//                                break;
+//                            case R.id.radButton2:
+//                                mPriority = 2;
+//                                break;
+//                            default:
+//                                mPriority = 0;
+//                                break;
+//                        }
+//                    }
+//                });
+//
+//
+//
+//                Button dialogCancel = (Button) mView.findViewById(R.id.btnCancel) ;
+//                Button dialogOK = (Button) mView.findViewById(R.id.btnOK) ;
+//
+//                dialogCancel.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                });
+//
+//                mBuilder.setView(mView);
+//                AlertDialog dialog = mBuilder.create();
+//                dialog.show();
+//            }
+//        });
 
-        btAdd = (Button) findViewById(R.id.btnAddGuest);
-        btAdd.setOnClickListener(new View.OnClickListener(){
+        //按下按鈕開啟一dialog視窗
+
+        fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.dialog,null);
-                mGuestName = (EditText) mView.findViewById(R.id.et_guest_name);
-                mGuestAge = (EditText) mView.findViewById(R.id.et_guest_age);
-
-                mRG = (RadioGroup) mView.findViewById(R.id.radGroup);
-                mRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        switch (mRG.getCheckedRadioButtonId()) {
-                            case R.id.radButton1:
-                                mPriority = 1;
-                                break;
-                            case R.id.radButton2:
-                                mPriority = 2;
-                                break;
-                            default:
-                                mPriority = 0;
-                                break;
-                        }
-                    }
-                });
-
-
-
-                Button dialogCancel = (Button) mView.findViewById(R.id.btnCancel) ;
-                Button dialogOK = (Button) mView.findViewById(R.id.btnOK) ;
-
-                dialogCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        v.cancelDragAndDrop();
-                    }
-                });
-
-
-                mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
-                dialog.show();
+            public void onClick(View view) {
+                dialogEvent();
             }
         });
-
 
         waitlistRecyclerView.setAdapter(mAdapter);
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -125,8 +134,55 @@ public class MainActivity extends AppCompatActivity {
             //COMPLETED (11) attach the ItemTouchHelper to the waitlistRecyclerView
         }).attachToRecyclerView(waitlistRecyclerView);
 
-
     }
+
+    private void dialogEvent(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        View mView = getLayoutInflater().inflate(dialog,null);
+        mGuestName = (EditText) mView.findViewById(R.id.et_guest_name);
+        mGuestAge = (EditText) mView.findViewById(R.id.et_guest_age);
+
+        mRG = (RadioGroup) mView.findViewById(R.id.radGroup);
+        mRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (mRG.getCheckedRadioButtonId()) {
+                    case R.id.radButton1:
+                        mPriority = 1;
+                        break;
+                    case R.id.radButton2:
+                        mPriority = 2;
+                        break;
+                    default:
+                        mPriority = 0;
+                        break;
+                }
+            }
+        });
+
+        final Button dialogCancel = (Button) mView.findViewById(R.id.btnCancel) ;
+        Button dialogOK = (Button) mView.findViewById(R.id.btnOK) ;
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        dialogOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addToWaitlist(view);
+                dialog.cancel();
+            }
+        });
+
+        dialogCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e(LOG_TAG, "Failed to parse party size text to number: " + ex.getMessage());
         }
 
-
         mSex = " ";
 
         if(mPriority==1){
@@ -206,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 null,
                 null,
-                null
+                WaitlistContract.WaitlistEntry.COLUMN_TIMESTAMP
         );
     }
 
@@ -266,7 +321,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean removeGuest(long id) {
-        // COMPLETED (2) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
         return mDb.delete(WaitlistContract.WaitlistEntry.TABLE_NAME,
                 WaitlistContract.WaitlistEntry._ID + "=" + id, null) > 0;
     }
