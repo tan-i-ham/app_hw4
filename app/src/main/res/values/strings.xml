@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Waitlist</string>
+    <string name="guest_name_hint">Guest name</string>
+    <string name="party_size_hint">Party size (max 99)</string>
+    <string name="add_button_text">ADD</string>
+    <string name="default_guest_name">[Guest name]</string>
+    <string name="default_party_size">\?</string>
+
+
+    <string name="main_activity_name">All Tasks</string>
+    <string name="add_task_activity_name">Add a New Task</string>
+
+    <!-- Strings for MainActivity -->
+    <string name="priority_1">1</string>
+    <string name="priority_2">2</string>
+    <string name="priority_3">3</string>
+
+    <!-- Strings for AddTaskActivity -->
+    <!-- This edit task has a unicode character for "..." = "&#8230;" -->
+    <string name="edit_task_description">Describe your task&#8230;</string>
+    <string name="priority_string">Priority</string>
+
+    <string name="high_priority">High</string>
+    <string name="med_priority">Medium</string>
+    <string name="low_priority">Low</string>
+
+    <string name="add_button">Add</string>
+
+<!--我自己家的-->
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="add_member">Add Member</string>
+
+
+    <!--sorting-->
+    <string name="sortByName">Sort By Name</string>
+    <string name="sortByGender">Sort By Gender</string>
+    <string name="sortByID">Sort By ID"</string>
+    <string name="sortByAge">Sort By Age"</string>
+</resources>
